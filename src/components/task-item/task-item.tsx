@@ -16,6 +16,7 @@ export type TaskItemProps = {
   isDelete: boolean;
   isSelected: boolean;
   rtl: boolean;
+
   onEventStart: (
     action: GanttContentMoveAction,
     selectedTask: BarTask,
@@ -45,7 +46,14 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
         setTaskItem(<Milestone {...props} />);
         break;
       case "project":
-        setTaskItem(<Project {...props} />);
+        // setTaskItem(<Project {...props} />);
+        setTaskItem(
+          <React.Fragment>
+            <Project {...props} />
+            {/* Conditionally render Milestone if the project has an associated milestone */}
+            <Milestone {...props} />
+          </React.Fragment>
+        );
         break;
       case "smalltask":
         setTaskItem(<BarSmall {...props} />);
